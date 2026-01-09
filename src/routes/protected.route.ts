@@ -21,6 +21,7 @@ export const protectedRoute = new Elysia({ prefix: "/app" })
       id: loggedUser.id,
       email: loggedUser.email,
       token: loggedUser.token,
+      alreadyCLaim: loggedUser.alreadyCLaim,
       balance: loggedUser.balance,
       createdAt: loggedUser.createdAt,
     };

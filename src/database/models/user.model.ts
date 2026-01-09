@@ -50,9 +50,16 @@ export const UserModel = {
 
   async findByToken(token: string): Promise<User | undefined> {
     // Query langsung dengan token (karena token disimpan sebagai plain text)
-    return await db.query.users.findFirst({
+    const user = await db.query.users.findFirst({
       where: eq(users.token, token),
     });
+
+    // Jika user belum teraktivasi, anggap token tidak valid
+    if (!user || user.isActivated === false) {
+      return undefined;
+    }
+
+    return user;
   },
 
   toPublic(user: User | NewUser): PublicUser {

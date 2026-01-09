@@ -17,6 +17,7 @@ export const users = pgTable("users", {
   token: varchar("token", { length: 255 }),
   balance: integer("balance").notNull().default(0),
   alreadyCLaim: boolean().default(false),
+  isActivated: boolean("is_activated").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
 });
