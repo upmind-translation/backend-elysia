@@ -2,6 +2,7 @@ import { Elysia } from "elysia";
 import { authRoute } from "./routes/auth.route";
 import { protectedRoute } from "./routes/protected.route";
 import { translationRoute } from "./routes/translation.route";
+import { dnsRoute } from "./routes/dns.route";
 import { jwtMiddleware } from "./middlewares/jwt.middleware";
 import { apiTokenGuard } from "./middlewares/token.middleware";
 import { env } from "./env";
@@ -39,6 +40,7 @@ new Elysia()
   )
   .get("/", () => "hello")
   .use(authRoute)
+  .use(dnsRoute)
 
   // Protected routes with JWT only
   .use(jwtMiddleware)
