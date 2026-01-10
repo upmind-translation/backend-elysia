@@ -159,12 +159,12 @@ type ParsedInput = {
 
 const parseInput = (rawInput: string): ParsedInput => {
   if (!rawInput || typeof rawInput !== "string") {
-    throw new DnsParseError("Input harus berupa string.");
+    throw new DnsParseError("Input must be a string.");
   }
 
   const input = rawInput.trim();
   if (!input) {
-    throw new DnsParseError("Input tidak boleh kosong.");
+    throw new DnsParseError("Input cannot be empty.");
   }
 
   let withoutRecords = input;
@@ -186,7 +186,7 @@ const parseInput = (rawInput: string): ParsedInput => {
 
   const domain = domainPart.split(/\s+/)[0];
   if (!domain) {
-    throw new DnsParseError("Domain tidak ditemukan pada input.");
+    throw new DnsParseError("Domain not found in input.");
   }
 
   let recordOrder: string[] | null = null;
@@ -198,7 +198,7 @@ const parseInput = (rawInput: string): ParsedInput => {
       .filter((item): item is string => Boolean(item));
 
     if (recordOrder.length === 0) {
-      throw new DnsParseError("Daftar record tidak valid.");
+      throw new DnsParseError("Invalid record list.");
     }
 
     // Remove duplicates preserving order
@@ -365,9 +365,7 @@ const buildSections = async ({
           key: "a",
           title: "A Record",
           records,
-          lines: records.length
-            ? records.map(formatAddressLine)
-            : ["Tidak ada data"],
+          lines: records.length ? records.map(formatAddressLine) : ["No data"],
         });
         break;
       }
@@ -381,7 +379,7 @@ const buildSections = async ({
           records,
           lines: records.length
             ? records.map(formatAddressLine)
-            : [`Tidak ditemukan A record untuk ${host}`],
+            : [`A record not found for ${host}`],
         });
         break;
       }
@@ -395,7 +393,7 @@ const buildSections = async ({
           records,
           lines: records.length
             ? records.map(formatAddressLine)
-            : [`Tidak ditemukan A record untuk ${host}`],
+            : [`A record not found for ${host}`],
         });
         break;
       }
@@ -422,7 +420,7 @@ const buildSections = async ({
                 }
                 return entry.ns;
               })
-            : ["Tidak ditemukan NS record"],
+            : ["NS record not found"],
         });
         break;
       }
@@ -439,7 +437,7 @@ const buildSections = async ({
                   .join(", ");
                 return ips ? `${entry.exchange} (${ips})` : entry.exchange;
               })
-            : ["Tidak ditemukan MX record"],
+            : ["MX record not found"],
         });
         break;
       }
@@ -449,7 +447,7 @@ const buildSections = async ({
           key: "txt",
           title: "TXT / SPF",
           records,
-          lines: records.length ? records : ["Tidak ditemukan TXT record"],
+          lines: records.length ? records : ["TXT record not found"],
         });
         break;
       }
@@ -461,7 +459,7 @@ const buildSections = async ({
           title: `DMARC (${host})`,
           host,
           records,
-          lines: records.length ? records : ["Tidak ditemukan DMARC record"],
+          lines: records.length ? records : ["DMARC record not found"],
         });
         break;
       }
@@ -473,7 +471,7 @@ const buildSections = async ({
           title: `DKIM (${host})`,
           host,
           records,
-          lines: records.length ? records : ["Tidak ditemukan DKIM record"],
+          lines: records.length ? records : ["DKIM record not found"],
         });
         break;
       }
@@ -502,9 +500,7 @@ const formatOutput = ({
   sections.forEach((section, index) => {
     lines.push(`[+] ${section.title}`);
     const contentLines =
-      section.lines && section.lines.length
-        ? section.lines
-        : ["Tidak ada data"];
+      section.lines && section.lines.length ? section.lines : ["No data"];
     contentLines.forEach((line) => {
       lines.push(`    ${line}`);
     });

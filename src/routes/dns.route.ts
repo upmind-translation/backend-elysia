@@ -20,7 +20,7 @@ export const dnsRoute = new Elysia().post(
       set.status = 400;
       return {
         status: "error",
-        message: "Body harus berisi properti 'query' atau string langsung.",
+        message: "Body must contain 'query' property or be a string directly.",
       };
     }
 
@@ -52,7 +52,7 @@ export const dnsRoute = new Elysia().post(
       set.status = 500;
       return {
         status: "error",
-        message: "Gagal melakukan DNS check",
+        message: "Failed to perform DNS check",
       };
     }
   },
