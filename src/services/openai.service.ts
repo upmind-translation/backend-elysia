@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { translationPrompt } from "./ai-promp/v2";
+import { translationPrompt } from "./ai-promp/v3";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
