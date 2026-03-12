@@ -50,4 +50,7 @@ new Elysia()
   .use(apiTokenGuard)
   .use(translationRoute)
 
-  .listen(env.PORT);
+  .listen({
+    port: env.PORT,
+    hostname: "0.0.0.0"
+  });
